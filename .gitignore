@@ -1,0 +1,31 @@
+# Visual Studio temporary files
+.vs/
+*.sln
+*.user
+x64/
+Debug/
+Release/
+game/x64/
+game/Debug/
+game/Release/
+.antigravity/
+
+# Visual Studio build artifacts
+*.ilk
+*.pdb
+*.idb
+*.exp
+*.lib
+*.obj
+*.log
+*.tlog
+*.recipe
+*.lastbuildstate
+
+# Assets but not thumbnails or start images if already tracked
+# (Actually, users provided those assets so we should track them)
+
+# Packages and Zips
+*Package/
+*.zip
+*.exe
