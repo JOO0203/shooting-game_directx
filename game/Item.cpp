@@ -1,4 +1,4 @@
-#include "Item.h"
+﻿#include "Item.h"
 #include "D3D11Renderer.h"
 #include "ResourceManager.h"
 
@@ -22,17 +22,17 @@ void Item::Update(float deltaTime) {
 
 void Item::Draw(D3D11Renderer* renderer) {
     if (!m_active) return;
-    std::wstring imgPath = L"../Assets/Images/FX/exhaust_01.png"; 
+    std::wstring imgPath = L"Assets/Images/FX/exhaust_01.png"; 
     float drawSize = 70.0f; 
 
     if (m_type == ItemType::PLASMA) {
-        imgPath = L"../Assets/Images/FX/subbullet/split_0_2.png";
+        imgPath = L"Assets/Images/FX/subbullet/split_0_2.png";
     } else if (m_type == ItemType::VULCAN) {
-        imgPath = L"../Assets/Images/FX/subbullet/split_0_0.png";
+        imgPath = L"Assets/Images/FX/subbullet/split_0_0.png";
     } else if (m_type == ItemType::HOMING) {
-        imgPath = L"../Assets/Images/FX/proton_01.png";
+        imgPath = L"Assets/Images/FX/proton_01.png";
     } else if (m_type == ItemType::SHIELD) {
-        imgPath = L"../Assets/Images/Explosions/explosion_3_09.png";
+        imgPath = L"Assets/Images/Explosions/explosion_3_09.png";
         drawSize = 100.0f; 
     }
 

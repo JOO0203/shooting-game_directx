@@ -1,4 +1,4 @@
-#include "Enemy.h"
+﻿#include "Enemy.h"
 #include "D3D11Renderer.h"
 #include "ResourceManager.h"
 #include <cmath>
@@ -184,27 +184,27 @@ bool Enemy::ShouldDropMine() {
 void Enemy::Draw(D3D11Renderer* renderer) {
     if (!m_active) return;
 
-    std::wstring imgPath = L"../Assets/Images/Enemies/enemy_1_b_m.png";
+    std::wstring imgPath = L"Assets/Images/Enemies/enemy_1_b_m.png";
     if (m_stage == 3) {
         switch (m_type) {
-        case EnemyType::STRAIGHT: imgPath = L"../Assets/Images/Enemies/Stage3/Stars (1).png"; break;
-        case EnemyType::CURVE:    imgPath = L"../Assets/Images/Enemies/Stage3/Stars (2).png"; break;
-        case EnemyType::ZAG:      imgPath = L"../Assets/Images/Enemies/Stage3/Stars (3).png"; break;
-        case EnemyType::MINELAYER:imgPath = L"../Assets/Images/Enemies/Stage3/Stars (5).png"; break;
-        case EnemyType::DIAGONAL: imgPath = L"../Assets/Images/Enemies/Stage3/Stars (4).png"; break;
-        case EnemyType::MINE:     imgPath = L"../Assets/Images/Enemies/mine_22_01.png"; break;
-        default:                  imgPath = L"../Assets/Images/Enemies/Stage3/Stars (1).png"; break;
+        case EnemyType::STRAIGHT: imgPath = L"Assets/Images/Enemies/Stage3/Stars (1).png"; break;
+        case EnemyType::CURVE:    imgPath = L"Assets/Images/Enemies/Stage3/Stars (2).png"; break;
+        case EnemyType::ZAG:      imgPath = L"Assets/Images/Enemies/Stage3/Stars (3).png"; break;
+        case EnemyType::MINELAYER:imgPath = L"Assets/Images/Enemies/Stage3/Stars (5).png"; break;
+        case EnemyType::DIAGONAL: imgPath = L"Assets/Images/Enemies/Stage3/Stars (4).png"; break;
+        case EnemyType::MINE:     imgPath = L"Assets/Images/Enemies/mine_22_01.png"; break;
+        default:                  imgPath = L"Assets/Images/Enemies/Stage3/Stars (1).png"; break;
         }
     }
     else {
         switch (m_type) {
-        case EnemyType::STRAIGHT: imgPath = L"../Assets/Images/Enemies/enemy_1_b_m.png"; break;
-        case EnemyType::ZAG:      imgPath = L"../Assets/Images/Enemies/enemy_1_r_m.png"; break;
-        case EnemyType::CURVE:    imgPath = L"../Assets/Images/Enemies/enemy_2_g_m.png"; break;
-        case EnemyType::DIAGONAL: imgPath = L"../Assets/Images/Enemies/enemy_2_r_m.png"; break;
-        case EnemyType::MINELAYER: imgPath = L"../Assets/Images/Enemies/enemy_2_b_m.png"; break;
-        case EnemyType::MINE:     imgPath = L"../Assets/Images/Enemies/mine_1_01.png"; break;
-        default:                  imgPath = L"../Assets/Images/Enemies/enemy_1_b_m.png"; break;
+        case EnemyType::STRAIGHT: imgPath = L"Assets/Images/Enemies/enemy_1_b_m.png"; break;
+        case EnemyType::ZAG:      imgPath = L"Assets/Images/Enemies/enemy_1_r_m.png"; break;
+        case EnemyType::CURVE:    imgPath = L"Assets/Images/Enemies/enemy_2_g_m.png"; break;
+        case EnemyType::DIAGONAL: imgPath = L"Assets/Images/Enemies/enemy_2_r_m.png"; break;
+        case EnemyType::MINELAYER: imgPath = L"Assets/Images/Enemies/enemy_2_b_m.png"; break;
+        case EnemyType::MINE:     imgPath = L"Assets/Images/Enemies/mine_1_01.png"; break;
+        default:                  imgPath = L"Assets/Images/Enemies/enemy_1_b_m.png"; break;
         }
     }
 

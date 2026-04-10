@@ -1,4 +1,4 @@
-#include "Player.h"
+﻿#include "Player.h"
 #include "D3D11Renderer.h"
 #include "ResourceManager.h"
 
@@ -111,7 +111,7 @@ void Player::Draw(D3D11Renderer* renderer) {
 
     // Shield Visual Effect
     if (m_isShieldActive && m_invincibleTimer > 0) {
-        ID3D11ShaderResourceView* sImg = ResourceManager::GetInstance().GetImage(L"../Assets/Images/Explosions/explosion_3_09.png");
+        ID3D11ShaderResourceView* sImg = ResourceManager::GetInstance().GetImage(L"Assets/Images/Explosions/explosion_3_09.png");
         if (sImg) {
             float sSize = 100.0f;
             renderer->DrawTexture(sImg, m_pos.x, m_pos.y, sSize, sSize);
@@ -120,10 +120,10 @@ void Player::Draw(D3D11Renderer* renderer) {
         if ((int)(m_invincibleTimer * 15) % 2 == 0) return;
     }
 
-    std::wstring imgPath = L"../Assets/Images/Player/player_b_m.png";
+    std::wstring imgPath = L"Assets/Images/Player/player_b_m.png";
     switch (m_state) {
-    case 1: imgPath = L"../Assets/Images/Player/player_b_r1.png"; break;
-    case 2: imgPath = L"../Assets/Images/Player/player_b_l1.png"; break;
+    case 1: imgPath = L"Assets/Images/Player/player_b_r1.png"; break;
+    case 2: imgPath = L"Assets/Images/Player/player_b_l1.png"; break;
     }
 
     ID3D11ShaderResourceView* img = ResourceManager::GetInstance().GetImage(imgPath);
@@ -131,7 +131,7 @@ void Player::Draw(D3D11Renderer* renderer) {
         renderer->DrawTexture(img, m_pos.x, m_pos.y, 64, 64);
     }
     
-    std::wstring exPath = L"../Assets/Images/FX/exhaust_0" + std::to_wstring((m_animFrame % 5) + 1) + L".png";
+    std::wstring exPath = L"Assets/Images/FX/exhaust_0" + std::to_wstring((m_animFrame % 5) + 1) + L".png";
     ID3D11ShaderResourceView* exImg = ResourceManager::GetInstance().GetImage(exPath);
     if (exImg) {
         renderer->DrawTexture(exImg, m_pos.x, m_pos.y + 24 + 16, 32, 32); // Adjusted for translation offset in DrawTexture
@@ -140,7 +140,7 @@ void Player::Draw(D3D11Renderer* renderer) {
     // Hitbox Visualization (Only in Focus Mode)
     if (GetAsyncKeyState(VK_SHIFT) & 0x8000) {
         // Use a small explosion or bullet texture as a substitute for FillEllipse
-        ID3D11ShaderResourceView* coreImg = ResourceManager::GetInstance().GetImage(L"../Assets/Images/FX/subbullet/split_0_2.png");
+        ID3D11ShaderResourceView* coreImg = ResourceManager::GetInstance().GetImage(L"Assets/Images/FX/subbullet/split_0_2.png");
         if (coreImg) {
             renderer->DrawTexture(coreImg, m_pos.x, m_pos.y, 10, 10, 0.0f, 1.0f, {0, 1, 1, 1});
             renderer->DrawTexture(coreImg, m_pos.x, m_pos.y, 4, 4, 0.0f, 1.0f, {1, 1, 1, 1});

@@ -336,7 +336,7 @@ void Boss::Draw(D3D11Renderer *renderer) {
     return;
 
   std::wstring basePath =
-      L"../Assets/Images/Boss/Stage" + std::to_wstring(m_stage) + L"/";
+      L"Assets/Images/Boss/Stage" + std::to_wstring(m_stage) + L"/";
 
   if (m_stage == 3) {
     ID3D11ShaderResourceView *wingImg =

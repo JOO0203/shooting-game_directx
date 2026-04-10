@@ -149,7 +149,7 @@ void Game::Update(float deltaTime) {
               dbgB->Fire(pPos.x, pPos.y, 0.0f, -2500.0f, true,
                          BulletType::PLAYER_MAIN, 250);
               dbgB->SetImage(ResourceManager::GetInstance().GetImage(
-                  L"../Assets/Images/Bullet/bullet_2-3.png"));
+                  L"Assets/Images/Bullet/bullet_2-3.png"));
               dbgB->SetScale(1.0f);
             }
           }
@@ -293,7 +293,7 @@ void Game::Update(float deltaTime) {
                 int frameIdx = (int)(age / flickerInterval);
                 std::wstring corePath = (frameIdx % 2 == 0) ? L"45" : L"44";
                 b->SetImage(ResourceManager::GetInstance().GetImage(
-                    L"../Assets/Images/EnergyBullet/Energy (" + corePath +
+                    L"Assets/Images/EnergyBullet/Energy (" + corePath +
                     L").png"));
                 b->SetScale(5.5f); // Increased size
 
@@ -314,7 +314,7 @@ void Game::Update(float deltaTime) {
                                  sinf(angle) * spd, false, BulletType::BOSS);
                       int starId = 1 + (rand() % 18);
                       frag->SetImage(ResourceManager::GetInstance().GetImage(
-                          L"../Assets/Images/StarBullet/Star (" +
+                          L"Assets/Images/StarBullet/Star (" +
                           std::to_wstring(starId) + L").png"));
                       frag->SetScale(0.6f);
                       frag->SetRadius(6.0f);
@@ -504,7 +504,7 @@ void Game::Update(float deltaTime) {
           sb->Fire(pos.x, pos.y, cosf(rad) * 150.0f, sinf(rad) * 150.0f, false,
                    BulletType::BOSS);
           sb->SetImage(ResourceManager::GetInstance().GetImage(
-              L"../Assets/Images/EnergyBullet/Energy (9).png"));
+              L"Assets/Images/EnergyBullet/Energy (9).png"));
           sb->SetScale(0.55f);
         }
       }
@@ -530,7 +530,7 @@ void Game::Update(float deltaTime) {
                       BulletType::BOSS);
               int imgId = (rand() % 10) + 1;
               b->SetImage(ResourceManager::GetInstance().GetImage(
-                  L"../Assets/Images/EnergyBullet/Energy (" +
+                  L"Assets/Images/EnergyBullet/Energy (" +
                   std::to_wstring(imgId) + L").png"));
               b->SetScale(0.85f);
             }
@@ -577,7 +577,7 @@ void Game::Update(float deltaTime) {
                 b->SetPhaseTimer(-1.8f - (float)(pulseGroup * 1.5f));
                 int cId = (rand() % 15) + 1;
                 b->SetImage(ResourceManager::GetInstance().GetImage(
-                    L"../Assets/Images/EnergyBullet/colorEnergy (" +
+                    L"Assets/Images/EnergyBullet/colorEnergy (" +
                     std::to_wstring(cId) + L").png"));
                 b->SetScale(0.8f);
               } else {
@@ -585,7 +585,7 @@ void Game::Update(float deltaTime) {
                 int randX = rand() % 4;
                 int randY = (rand() % 4) + 7;
                 b->SetImage(ResourceManager::GetInstance().GetImage(
-                    L"../Assets/Images/Bullets/split_" +
+                    L"Assets/Images/Bullets/split_" +
                     std::to_wstring(randX) + L"_" + std::to_wstring(randY) +
                     L".png"));
               }
@@ -878,7 +878,7 @@ void Game::FireEnemyBullet(Enemy *enemy) {
       b->SetIsSmall(true); // Enable micro-bullet rendering (45x45)
       b->SetRadius(3.0f);  // Reduced hitbox for precision Danmaku
       b->SetImage(ResourceManager::GetInstance().GetImage(
-          L"../Assets/Images/Enemies/bullet/split_1_3.png"));
+          L"Assets/Images/Enemies/bullet/split_1_3.png"));
     }
     return; // Important: Exit early for DIAGONAL
   }
@@ -947,15 +947,15 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
       std::wstring path = L"";
       if (m_stage == 1) {
         int cId = (pattern * 3 + (finalV % 5)) % 18 + 1;
-        path = L"../Assets/Images/RealBullet/BossBullet (" +
+        path = L"Assets/Images/RealBullet/BossBullet (" +
                std::to_wstring(cId) + L").png";
       } else if (m_stage == 2) {
         int cId = (pattern * 5 + (finalV % 10)) % 45 + 1;
-        path = L"../Assets/Images/EnergyBullet/Energy (" +
+        path = L"Assets/Images/EnergyBullet/Energy (" +
                std::to_wstring(cId) + L").png";
       } else if (m_stage == 3) {
         int cId = (pattern * 3 + (finalV % 5)) % 18 + 1;
-        path = L"../Assets/Images/StarBullet/Star (" + std::to_wstring(cId) +
+        path = L"Assets/Images/StarBullet/Star (" + std::to_wstring(cId) +
                L").png";
       }
 
@@ -987,7 +987,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
             b->Fire(firePos.x, firePos.y, cosf(a) * bs * 3.8f,
                     sinf(a) * bs * 3.8f, false, BulletType::BOSS);
             b->SetImage(ResourceManager::GetInstance().GetImage(
-                L"../Assets/Images/RealBullet/BossBullet (7).png"));
+                L"Assets/Images/RealBullet/BossBullet (7).png"));
           }
         }
       }
@@ -1014,7 +1014,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                     releaseTimer, anchor);
         int imgId = (rand() % 18) + 1;
         b->SetImage(ResourceManager::GetInstance().GetImage(
-            L"../Assets/Images/RealBullet/BossBullet (" +
+            L"Assets/Images/RealBullet/BossBullet (" +
             std::to_wstring(imgId) + L").png"));
       }
     }
@@ -1042,7 +1042,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                         releaseTimer, wingPos);
             int imgId = ((int)(t * 100) % 18) + 1;
             b->SetImage(ResourceManager::GetInstance().GetImage(
-                L"../Assets/Images/RealBullet/BossBullet (" +
+                L"Assets/Images/RealBullet/BossBullet (" +
                 std::to_wstring(imgId) + L").png"));
             b->SetScale(0.9f);
           }
@@ -1065,7 +1065,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
               b->Fire(firePos.x, firePos.y, cosf(a) * speed, sinf(a) * speed,
                       false, BulletType::BOSS);
               b->SetImage(ResourceManager::GetInstance().GetImage(
-                  L"../Assets/Images/RealBullet/BossBullet (12).png"));
+                  L"Assets/Images/RealBullet/BossBullet (12).png"));
               b->SetScale(0.95f);
             }
           }
@@ -1090,7 +1090,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                   sinf(rad) * bs * 1.8f, false,
                   BulletType::BOSS); // ?�도 ?�향 (2.2f -> 1.8f)
           b->SetImage(ResourceManager::GetInstance().GetImage(
-              L"../Assets/Images/RealBullet/BossBullet (2).png"));
+              L"Assets/Images/RealBullet/BossBullet (2).png"));
         }
       }
     }
@@ -1111,7 +1111,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
         b->SetPhaseTimer(0.0f);
         b->SetTurret(true);
         b->SetImage(ResourceManager::GetInstance().GetImage(
-            L"../Assets/Images/EnergyBullet/Energy (4).png"));
+            L"Assets/Images/EnergyBullet/Energy (4).png"));
         b->SetScale(1.8f);
       }
     }
@@ -1134,7 +1134,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                    0, true); // ?�도 추�? ?�향
           int imgId = 1 + (rand() % 45);
           mb->SetImage(ResourceManager::GetInstance().GetImage(
-              L"../Assets/Images/EnergyBullet/Energy (" +
+              L"Assets/Images/EnergyBullet/Energy (" +
               std::to_wstring(imgId) + L").png"));
           mb->SetScale(1.2f);
         }
@@ -1169,7 +1169,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
 
           int imgId = (i % 18) + 1;
           b->SetImage(ResourceManager::GetInstance().GetImage(
-              L"../Assets/Images/RealBullet/BossBullet (" +
+              L"Assets/Images/RealBullet/BossBullet (" +
               std::to_wstring(imgId) + L").png"));
           b->SetScale(0.9f);
 
@@ -1186,7 +1186,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
               p->SetLifeTime(0.7f);
               int energyId = 1 + (rand() % 45);
               p->SetImage(ResourceManager::GetInstance().GetImage(
-                  L"../Assets/Images/EnergyBullet/Energy (" +
+                  L"Assets/Images/EnergyBullet/Energy (" +
                   std::to_wstring(energyId) + L").png"));
             }
           }
@@ -1222,7 +1222,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
             // RealBullet ?��?지 ?�용
             int imgId = (side == -1) ? 1 : 12; // 줄기 방향별로 ?�상 구분
             b->SetImage(ResourceManager::GetInstance().GetImage(
-                L"../Assets/Images/RealBullet/BossBullet (" +
+                L"Assets/Images/RealBullet/BossBullet (" +
                 std::to_wstring(imgId) + L").png"));
             b->SetScale(1.2f);
           }
@@ -1249,7 +1249,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
         // ?�청?�신 Energy (17~25) ?�리�??�용
         int imgId = 17 + (i % 9);
         b->SetImage(ResourceManager::GetInstance().GetImage(
-            L"../Assets/Images/EnergyBullet/Energy (" + std::to_wstring(imgId) +
+            L"Assets/Images/EnergyBullet/Energy (" + std::to_wstring(imgId) +
             L").png"));
         b->SetScale(1.3f); // ?�너지 ?�환??가?�성???�해 ?��????�폭 ?�향
       }
@@ -1278,7 +1278,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
         b->SetTurret(true);
         b->SetPhaseTimer(0.0f); // Initial fast -> slow -> stop
         b->SetImage(ResourceManager::GetInstance().GetImage(
-            L"../Assets/Images/EnergyBullet/Energy (1).png"));
+            L"Assets/Images/EnergyBullet/Energy (1).png"));
         b->SetScale(3.2f); // Increased from 2.5f for visual impact
       }
     }
@@ -1301,7 +1301,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                 BulletType::BOSS);
         int imgId = 14 + (rand() % 3);
         b->SetImage(ResourceManager::GetInstance().GetImage(
-            L"../Assets/Images/EnergyBullet/Energy (" + std::to_wstring(imgId) +
+            L"Assets/Images/EnergyBullet/Energy (" + std::to_wstring(imgId) +
             L").png"));
         b->SetScale(1.8f);
       }
@@ -1327,7 +1327,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                       25, 36, 37, 40, 41, 44, 45};
         int imgId = pool[rand() % (sizeof(pool) / sizeof(int))];
         rb->SetImage(ResourceManager::GetInstance().GetImage(
-            L"../Assets/Images/EnergyBullet/Energy (" + std::to_wstring(imgId) +
+            L"Assets/Images/EnergyBullet/Energy (" + std::to_wstring(imgId) +
             L").png"));
         rb->SetScale(0.6f + (float)(rand() % 10) * 0.1f);
       }
@@ -1350,7 +1350,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                     false, BulletType::BOSS);
             int imgId = 26 + (rand() % 9);
             b->SetImage(ResourceManager::GetInstance().GetImage(
-                L"../Assets/Images/EnergyBullet/Energy (" +
+                L"Assets/Images/EnergyBullet/Energy (" +
                 std::to_wstring(imgId) + L").png"));
             b->SetScale(0.7f);
           }
@@ -1395,13 +1395,13 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
           if (layer == 0) {
             int imgId = 44 + (rand() % 2);
             b->SetImage(ResourceManager::GetInstance().GetImage(
-                L"../Assets/Images/EnergyBullet/Energy (" +
+                L"Assets/Images/EnergyBullet/Energy (" +
                 std::to_wstring(imgId) + L").png"));
             b->SetScale(1.3f);
           } else {
             int imgId = 2 + (rand() % 9);
             b->SetImage(ResourceManager::GetInstance().GetImage(
-                L"../Assets/Images/EnergyBullet/Energy (" +
+                L"Assets/Images/EnergyBullet/Energy (" +
                 std::to_wstring(imgId) + L").png"));
             b->SetScale(0.7f + (layer * 0.25f));
           }
@@ -1427,7 +1427,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
           bL->Fire(bp.x - 150.0f, bp.y + 50.0f, 0.0f, 0.0f, false,
                    BulletType::BOSS);
           bL->SetImage(ResourceManager::GetInstance().GetImage(
-              L"../Assets/Images/EnergyBullet/Energy (1).png"));
+              L"Assets/Images/EnergyBullet/Energy (1).png"));
           bL->SetScale(0.1f);
           bL->SetGrowthRate((6.0f - 0.1f) / 7.0f);
           bL->SetLifeTime(7.0f);
@@ -1438,7 +1438,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
           bR->Fire(bp.x + 150.0f, bp.y + 50.0f, 0.0f, 0.0f, false,
                    BulletType::BOSS);
           bR->SetImage(ResourceManager::GetInstance().GetImage(
-              L"../Assets/Images/EnergyBullet/Energy (1).png"));
+              L"Assets/Images/EnergyBullet/Energy (1).png"));
           bR->SetScale(0.1f);
           bR->SetGrowthRate((6.0f - 0.1f) / 7.0f);
           bR->SetLifeTime(7.0f);
@@ -1472,7 +1472,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
         bL->Fire(bp.x - 150.0f, bp.y + 50.0f, vx, 750.0f, false,
                  BulletType::BOSS); // ?�속 ?�향 (600 -> 750)
         bL->SetImage(ResourceManager::GetInstance().GetImage(
-            L"../Assets/Images/EnergyBullet/Energy (1).png"));
+            L"Assets/Images/EnergyBullet/Energy (1).png"));
         bL->SetScale(6.0f);
         bL->SetRadius(80.0f);
         bL->SetNoDamage(false);
@@ -1483,7 +1483,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
         bR->Fire(bp.x + 150.0f, bp.y + 50.0f, -vx, 750.0f, false,
                  BulletType::BOSS); // ?�속 ?�향 (600 -> 750)
         bR->SetImage(ResourceManager::GetInstance().GetImage(
-            L"../Assets/Images/EnergyBullet/Energy (1).png"));
+            L"Assets/Images/EnergyBullet/Energy (1).png"));
         bR->SetScale(6.0f);
         bR->SetRadius(80.0f);
         bR->SetNoDamage(false);
@@ -1525,7 +1525,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                 b->Fire(x, (yDir == 0 ? r.y1 : r.y2), 0.0f, 0.0f, false,
                         BulletType::BOSS);
                 b->SetImage(ResourceManager::GetInstance().GetImage(
-                    L"../Assets/Images/EnergyBullet/colorEnergy (11).png"));
+                    L"Assets/Images/EnergyBullet/colorEnergy (11).png"));
                 b->SetNoDamage(true);
                 b->SetScale(1.5f);
                 b->SetLifeTime(2.5f); // ?�속 ?�상???�른 ?�명 ?�축 (4.0 -> 2.5)
@@ -1539,7 +1539,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                 b->Fire((xDir == 0 ? r.x1 : r.x2), y, 0.0f, 0.0f, false,
                         BulletType::BOSS);
                 b->SetImage(ResourceManager::GetInstance().GetImage(
-                    L"../Assets/Images/EnergyBullet/colorEnergy (10).png"));
+                    L"Assets/Images/EnergyBullet/colorEnergy (10).png"));
                 b->SetNoDamage(true);
                 b->SetScale(1.5f);
                 b->SetLifeTime(2.5f);
@@ -1556,7 +1556,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
               if (b) {
                 b->Fire(-50.0f, (float)y, speed, 0.0f, false, BulletType::BOSS);
                 b->SetImage(ResourceManager::GetInstance().GetImage(
-                    L"../Assets/Images/EnergyBullet/Energy (39).png"));
+                    L"Assets/Images/EnergyBullet/Energy (39).png"));
                 b->SetScale(1.8f);
                 b->SetRadius(25.0f);
                 b->SetNoDamage(false);
@@ -1568,7 +1568,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                     b2->Fire(r.x2 + 20.0f, (float)y, speed, 0.0f, false,
                              BulletType::BOSS);
                     b2->SetImage(ResourceManager::GetInstance().GetImage(
-                        L"../Assets/Images/EnergyBullet/Energy (39).png"));
+                        L"Assets/Images/EnergyBullet/Energy (39).png"));
                     b2->SetScale(1.8f);
                     b2->SetRadius(25.0f);
                     b2->SetNoDamage(false);
@@ -1585,7 +1585,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                 b->Fire(m_width + 50.0f, (float)y, -speed, 0.0f, false,
                         BulletType::BOSS);
                 b->SetImage(ResourceManager::GetInstance().GetImage(
-                    L"../Assets/Images/EnergyBullet/Energy (35).png"));
+                    L"Assets/Images/EnergyBullet/Energy (35).png"));
                 b->SetScale(1.8f);
                 b->SetRadius(25.0f);
                 b->SetNoDamage(false);
@@ -1597,7 +1597,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                     b2->Fire(r.x1 - 20.0f, (float)y, -speed, 0.0f, false,
                              BulletType::BOSS);
                     b2->SetImage(ResourceManager::GetInstance().GetImage(
-                        L"../Assets/Images/EnergyBullet/Energy (35).png"));
+                        L"Assets/Images/EnergyBullet/Energy (35).png"));
                     b2->SetScale(1.8f);
                     b2->SetRadius(25.0f);
                     b2->SetNoDamage(false);
@@ -1615,7 +1615,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                 b->Fire((float)x, m_height + 50.0f, 0.0f, -speed, false,
                         BulletType::BOSS);
                 b->SetImage(ResourceManager::GetInstance().GetImage(
-                    L"../Assets/Images/EnergyBullet/Energy (43).png"));
+                    L"Assets/Images/EnergyBullet/Energy (43).png"));
                 b->SetScale(1.8f);
                 b->SetRadius(25.0f);
                 b->SetNoDamage(false);
@@ -1627,7 +1627,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                     b2->Fire((float)x, r.y1 - 20.0f, 0.0f, -speed, false,
                              BulletType::BOSS);
                     b2->SetImage(ResourceManager::GetInstance().GetImage(
-                        L"../Assets/Images/EnergyBullet/Energy (43).png"));
+                        L"Assets/Images/EnergyBullet/Energy (43).png"));
                     b2->SetScale(1.8f);
                     b2->SetRadius(25.0f);
                     b2->SetNoDamage(false);
@@ -1646,7 +1646,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                 bl->Fire(-50.0f, (float)y, speed * 1.3f, 0.0f, false,
                          BulletType::BOSS);
                 bl->SetImage(ResourceManager::GetInstance().GetImage(
-                    L"../Assets/Images/EnergyBullet/Energy (39).png"));
+                    L"Assets/Images/EnergyBullet/Energy (39).png"));
                 bl->SetScale(1.8f);
                 bl->SetRadius(25.0f);
                 bl->SetNoDamage(false);
@@ -1658,7 +1658,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                     bl2->Fire(r.x2 + 20.0f, (float)y, speed * 1.3f, 0.0f, false,
                               BulletType::BOSS);
                     bl2->SetImage(ResourceManager::GetInstance().GetImage(
-                        L"../Assets/Images/EnergyBullet/Energy (39).png"));
+                        L"Assets/Images/EnergyBullet/Energy (39).png"));
                     bl2->SetScale(1.8f);
                     bl2->SetRadius(25.0f);
                     bl2->SetNoDamage(false);
@@ -1673,7 +1673,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                 br->Fire(m_width + 50.0f, (float)y, -speed * 1.3f, 0.0f, false,
                          BulletType::BOSS);
                 br->SetImage(ResourceManager::GetInstance().GetImage(
-                    L"../Assets/Images/EnergyBullet/Energy (35).png"));
+                    L"Assets/Images/EnergyBullet/Energy (35).png"));
                 br->SetScale(1.8f);
                 br->SetRadius(25.0f);
                 br->SetNoDamage(false);
@@ -1686,7 +1686,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                     br2->Fire(r.x1 - 20.0f, (float)y, -speed * 1.3f, 0.0f,
                               false, BulletType::BOSS);
                     br2->SetImage(ResourceManager::GetInstance().GetImage(
-                        L"../Assets/Images/EnergyBullet/Energy (35).png"));
+                        L"Assets/Images/EnergyBullet/Energy (35).png"));
                     br2->SetScale(1.8f);
                     br2->SetRadius(25.0f);
                     br2->SetNoDamage(false);
@@ -1720,7 +1720,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
         magicCircle->Fire(handPos.x, handPos.y, 0.0f, 0.0f, false,
                           BulletType::BOSS);
         magicCircle->SetImage(ResourceManager::GetInstance().GetImage(
-            L"../Assets/Images/EnergyBullet/Energy (42).png"));
+            L"Assets/Images/EnergyBullet/Energy (42).png"));
         magicCircle->SetNoDamage(true);
         magicCircle->SetScale(1.8f);
         magicCircle->SetLifeTime(0.08f);
@@ -1751,7 +1751,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
           b->Fire(chainPos.x, chainPos.y, 0.0f, 0.0f, false, BulletType::BOSS);
           int imgId = (i % 2 == 0) ? 35 : 39;
           b->SetImage(ResourceManager::GetInstance().GetImage(
-              L"../Assets/Images/EnergyBullet/Energy (" +
+              L"Assets/Images/EnergyBullet/Energy (" +
               std::to_wstring(imgId) + L").png"));
           b->SetScale(1.3f);
           b->SetLifeTime(0.35f); // ?�상???�기�?빠르�??�멸
@@ -1771,7 +1771,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
               fragment->Fire(chainPos.x, chainPos.y, cosf(fRad) * fSpd,
                              sinf(fRad) * fSpd, false, BulletType::BOSS);
               fragment->SetImage(ResourceManager::GetInstance().GetImage(
-                  L"../Assets/Images/EnergyBullet/Energy (35).png"));
+                  L"Assets/Images/EnergyBullet/Energy (35).png"));
               fragment->SetScale(0.7f);
             }
           }
@@ -1801,7 +1801,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                   BulletType::BOSS);
           int starId = 1 + (rand() % 6);
           b->SetImage(ResourceManager::GetInstance().GetImage(
-              L"../Assets/Images/StarBullet/Star (" + std::to_wstring(starId) +
+              L"Assets/Images/StarBullet/Star (" + std::to_wstring(starId) +
               L").png"));
           b->SetScale(1.0f);
           b->SetRadius(12.0f);
@@ -1822,7 +1822,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                   BulletType::BOSS);
           int starId = 1 + (rand() % 6);
           b->SetImage(ResourceManager::GetInstance().GetImage(
-              L"../Assets/Images/StarBullet/Star (" + std::to_wstring(starId) +
+              L"Assets/Images/StarBullet/Star (" + std::to_wstring(starId) +
               L").png"));
           b->SetScale(1.0f);
           b->SetRadius(12.0f);
@@ -1846,7 +1846,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
           b->Fire(bp.x, bp.y + 50.0f, vx, vy, false, BulletType::BOSS);
           int ptrId = 1 + (rand() % 18);
           b->SetImage(ResourceManager::GetInstance().GetImage(
-              L"../Assets/Images/StarBullet/Pointer (" +
+              L"Assets/Images/StarBullet/Pointer (" +
               std::to_wstring(ptrId) + L").png"));
           b->SetScale(2.5f);
           b->SetRadius(45.0f);
@@ -1899,7 +1899,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
               b->Fire(x, bp.y, 0.0f, wallSpeed, false, BulletType::BOSS);
               int sid = 7 + (rand() % 6);
               b->SetImage(ResourceManager::GetInstance().GetImage(
-                  L"../Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
+                  L"Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
                   L").png"));
               b->SetScale(1.5f);
               b->SetRadius(19.0f);
@@ -1924,7 +1924,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                       BulletType::BOSS);
               int sid = 7 + (rand() % 6);
               b->SetImage(ResourceManager::GetInstance().GetImage(
-                  L"../Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
+                  L"Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
                   L").png"));
               b->SetScale(1.5f);
               b->SetRadius(19.0f);
@@ -1986,7 +1986,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
               b->Fire(sx, sy, (dx / dist) * convSpeed, (dy / dist) * convSpeed,
                       false, BulletType::BOSS);
               b->SetImage(ResourceManager::GetInstance().GetImage(
-                  L"../Assets/Images/StarBullet/Star (7).png"));
+                  L"Assets/Images/StarBullet/Star (7).png"));
               b->SetScale(1.4f);
               b->SetRadius(18.0f);
             }
@@ -2005,7 +2005,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
         b->Fire(bp.x, bp.y + 50.0f, cosf(rad) * speed, sinf(rad) * speed, false,
                 BulletType::BOSS);
         b->SetImage(ResourceManager::GetInstance().GetImage(
-            L"../Assets/Images/StarBullet/Pointer (12).png"));
+            L"Assets/Images/StarBullet/Pointer (12).png"));
         b->SetScale(0.8f);
         b->SetRadius(10.0f);
       }
@@ -2028,7 +2028,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
       b->Fire(startX, bp.y, 0.0f, 150.0f, false, BulletType::BOSS);
       int imgId = 2 + (rand() % 9);
       b->SetImage(ResourceManager::GetInstance().GetImage(
-          L"../Assets/Images/EnergyBullet/Energy (" + std::to_wstring(imgId) +
+          L"Assets/Images/EnergyBullet/Energy (" + std::to_wstring(imgId) +
           L").png"));
       b->SetScale(2.5f);
       b->SetRadius(40.0f);
@@ -2058,7 +2058,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                     false, BulletType::BOSS, 340);
             int starId = (rand() % 18) + 1;
             b->SetImage(ResourceManager::GetInstance().GetImage(
-                L"../Assets/Images/StarBullet/Star (" +
+                L"Assets/Images/StarBullet/Star (" +
                 std::to_wstring(starId) + L").png"));
             b->SetScale(0.8f);
             b->SetRadius(10.0f);
@@ -2074,7 +2074,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
         if (core) {
           core->Fire(bp.x, bp.y, 0.0f, 0.0f, false, BulletType::BOSS, 341);
           core->SetImage(ResourceManager::GetInstance().GetImage(
-              L"../Assets/Images/EnergyBullet/Energy (44).png"));
+              L"Assets/Images/EnergyBullet/Energy (44).png"));
           core->SetScale(m_supernovaScale);
           core->SetNoDamage(true);
           core->SetLifeTime(0.06f);
@@ -2095,7 +2095,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                     BulletType::BOSS);
             int starId = (rand() % 18) + 1;
             b->SetImage(ResourceManager::GetInstance().GetImage(
-                L"../Assets/Images/StarBullet/Star (" +
+                L"Assets/Images/StarBullet/Star (" +
                 std::to_wstring(starId) + L").png"));
             b->SetScale(1.2f);
             b->SetRadius(15.0f);
@@ -2154,7 +2154,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
               int sid =
                   ring.minStar + (rand() % (ring.maxStar - ring.minStar + 1));
               b->SetImage(ResourceManager::GetInstance().GetImage(
-                  L"../Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
+                  L"Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
                   L").png"));
               b->SetScale(1.0f);
               b->SetRadius(12.0f);
@@ -2199,7 +2199,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
             int sid =
                 ring.minStar + (rand() % (ring.maxStar - ring.minStar + 1));
             b->SetImage(ResourceManager::GetInstance().GetImage(
-                L"../Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
+                L"Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
                 L").png"));
             b->SetScale(1.0f);
             b->SetRadius(12.0f);
@@ -2227,7 +2227,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
         if (b) {
           b->Fire(pp.x, pp.y, 0.0f, 0.0f, false, BulletType::BOSS, 351);
           b->SetImage(ResourceManager::GetInstance().GetImage(
-              L"../Assets/Images/EnergyBullet/Energy (45).png"));
+              L"Assets/Images/EnergyBullet/Energy (45).png"));
           b->SetScale(2.5f);
           b->SetNoDamage(true);
           b->SetLifeTime(10.0f);
@@ -2295,7 +2295,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
                       360);
               int sid = 15 + (rand() % 4);
               b->SetImage(ResourceManager::GetInstance().GetImage(
-                  L"../Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
+                  L"Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
                   L").png"));
               b->SetScale(1.05f);
               b->SetRadius(12.0f);
@@ -2369,7 +2369,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
         b->Fire(x, -30.0f, 0.0f, speed, false, BulletType::BOSS);
         int sid = 7 + (rand() % 6);
         b->SetImage(ResourceManager::GetInstance().GetImage(
-            L"../Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
+            L"Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
             L").png"));
         b->SetScale(1.0f);
         b->SetRadius(12.0f);
@@ -2394,7 +2394,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
           b->Fire(rx, ry, 0.0f, 0.0f, false, BulletType::BOSS, 380);
           int sid = 15 + (rand() % 4);
           b->SetImage(ResourceManager::GetInstance().GetImage(
-              L"../Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
+              L"Assets/Images/StarBullet/Star (" + std::to_wstring(sid) +
               L").png"));
           b->SetScale(0.85f);
           b->SetRadius(8.0f);
@@ -2467,7 +2467,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
           if (b) {
             b->Fire(curL.x, curL.y, 0.0f, 0.0f, false, BulletType::BOSS);
             b->SetImage(ResourceManager::GetInstance().GetImage(
-                L"../Assets/Images/StarBullet/Star (15).png"));
+                L"Assets/Images/StarBullet/Star (15).png"));
             b->SetScale(1.3f);
             b->SetLifeTime(4.0f);
           }
@@ -2477,7 +2477,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
           if (b) {
             b->Fire(curR.x, curR.y, 0.0f, 0.0f, false, BulletType::BOSS);
             b->SetImage(ResourceManager::GetInstance().GetImage(
-                L"../Assets/Images/StarBullet/Star (17).png"));
+                L"Assets/Images/StarBullet/Star (17).png"));
             b->SetScale(1.3f);
             b->SetLifeTime(4.0f);
           }
@@ -2504,7 +2504,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
             bl->Fire(safeMargin - 150.0f, curWingY, 520.0f, 0.0f, false,
                      BulletType::BOSS);
             bl->SetImage(ResourceManager::GetInstance().GetImage(
-                L"../Assets/Images/StarBullet/Pointer (12).png"));
+                L"Assets/Images/StarBullet/Pointer (12).png"));
             bl->SetScale(0.7f);
             bl->SetAlpha(0.6f);
           }
@@ -2515,7 +2515,7 @@ void Game::FireBossBullet(Boss *boss, float deltaTime) {
             br->Fire((float)m_width - safeMargin + 150.0f, curWingY, -520.0f,
                      0.0f, false, BulletType::BOSS);
             br->SetImage(ResourceManager::GetInstance().GetImage(
-                L"../Assets/Images/StarBullet/Pointer (12).png"));
+                L"Assets/Images/StarBullet/Pointer (12).png"));
             br->SetScale(0.7f);
             br->SetAlpha(0.6f);
           }
@@ -2542,15 +2542,15 @@ void Game::FireEnemyRadial(Vector2 pos, int count, float speed,
         std::wstring path = L"";
         if (m_stage == 1) {
           int cId = (ebc % 18) + 1;
-          path = L"../Assets/Images/RealBullet/BossBullet (" +
+          path = L"Assets/Images/RealBullet/BossBullet (" +
                  std::to_wstring(cId) + L").png";
         } else if (m_stage == 2) {
           int cId = (ebc % 45) + 1;
-          path = L"../Assets/Images/EnergyBullet/Energy (" +
+          path = L"Assets/Images/EnergyBullet/Energy (" +
                  std::to_wstring(cId) + L").png";
         } else if (m_stage == 3) {
           int cId = (ebc % 18) + 1;
-          path = L"../Assets/Images/StarBullet/Star (" + std::to_wstring(cId) +
+          path = L"Assets/Images/StarBullet/Star (" + std::to_wstring(cId) +
                  L").png";
         }
 
@@ -2577,13 +2577,13 @@ Bullet *Game::GetFreeBullet() {
 std::wstring Game::GetBackgroundPath(int stage) {
   switch (stage) {
   case 1:
-    return L"../Assets/Images/BackGround/Stage1/Starfield 5 - 1024x1024.png";
+    return L"Assets/Images/BackGround/Stage1/Starfield 5 - 1024x1024.png";
   case 2:
-    return L"../Assets/Images/BackGround/Stage2/Blue Nebula 3 - 1024x1024.png";
+    return L"Assets/Images/BackGround/Stage2/Blue Nebula 3 - 1024x1024.png";
   case 3:
-    return L"../Assets/Images/BackGround/Stage3/Green Nebula 1 - 1024x1024.png";
+    return L"Assets/Images/BackGround/Stage3/Green Nebula 1 - 1024x1024.png";
   default:
-    return L"../Assets/Images/BackGround/Stage1/Starfield 5 - 1024x1024.png";
+    return L"Assets/Images/BackGround/Stage1/Starfield 5 - 1024x1024.png";
   }
 }
 
@@ -2680,7 +2680,7 @@ void Game::CheckCollisions() {
                              sinf(angle) * 250.0f * mult, false,
                              BulletType::BOSS);
                   frag->SetImage(ResourceManager::GetInstance().GetImage(
-                      L"../Assets/Images/StarBullet/Star (" +
+                      L"Assets/Images/StarBullet/Star (" +
                       std::to_wstring((rand() % 18) + 1) + L").png"));
                   frag->SetScale(0.5f);
                   frag->SetRadius(5.0f);
@@ -2834,7 +2834,7 @@ void Game::Render() {
 
   if (m_state == GameState::START) {
     ID3D11ShaderResourceView *sImg = ResourceManager::GetInstance().GetImage(
-        L"../Assets/Images/BackGround/Start/StartImage.png");
+        L"Assets/Images/BackGround/Start/StartImage.png");
     if (sImg) {
       m_renderer->DrawTexture(sImg, (float)m_width / 2.0f,
                               (float)m_height / 2.0f, (float)m_width,
@@ -2980,7 +2980,7 @@ void Game::FireSubBossDeathPattern(Vector2 pos) {
               BulletType::BOSS);
       int starId = (rand() % 18) + 1;
       b->SetImage(ResourceManager::GetInstance().GetImage(
-          L"../Assets/Images/StarBullet/Star (" + std::to_wstring(starId) +
+          L"Assets/Images/StarBullet/Star (" + std::to_wstring(starId) +
           L").png"));
       b->SetScale(0.5f);
       b->SetRadius(5.0f);
