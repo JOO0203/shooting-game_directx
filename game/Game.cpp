@@ -1,4 +1,4 @@
-﻿#include "Game.h"
+#include "Game.h"
 #include "D3D11Renderer.h"
 #include "ResourceManager.h"
 #include <algorithm>
@@ -62,8 +62,12 @@ void Game::Run() {
   float deltaTime = (float)(currentTime.QuadPart - m_qpcLastTime.QuadPart) /
                     (float)m_qpcFrequency.QuadPart;
 
-  if (deltaTime <= 0.0f)
+  // FPS 제한: 너무 빨리 루프가 돌면 대기 (약 70 FPS 상한)
+  if (deltaTime < FIXED_DELTA_TIME * 0.8f) {
+    Sleep(0); // CPU 점유율 조절 및 대기
     return;
+  }
+
   if (deltaTime > 0.1f)
     deltaTime = 0.1f;
 
@@ -80,9 +84,9 @@ void Game::Run() {
   m_fpsFrameCount++;
   m_fpsTimer += deltaTime;
   if (m_fpsTimer >= 1.0f) {
-    m_currentFps = m_fpsFrameCount;
+    m_currentFps = (int)((float)m_fpsFrameCount / m_fpsTimer);
     m_fpsFrameCount = 0;
-    m_fpsTimer -= 1.0f;
+    m_fpsTimer = 0.0f;
   }
 }
 
