@@ -12,7 +12,7 @@
 #include "Boss.h"
 #include "SpatialGrid.h"
 
-enum class GameState { START, PLAYING, PAUSED, GAMEOVER, GAMECLEAR, ENDING };
+enum class GameState { START, PLAYING, PAUSED, GAMEOVER, GAMECLEAR, ENDING, RANKING };
 
 class Game {
 public:
@@ -48,6 +48,10 @@ private:
     Bullet* GetFreeBullet();
     std::wstring GetBackgroundPath(int stage);
     void SpawnPattern(float deltaTime);
+    void LoadRankings();
+    void SaveRankings();
+    void UpdateRankings(int score);
+
 
     Player m_player;
     std::vector<std::unique_ptr<Boss>> m_bosses;
@@ -92,4 +96,8 @@ private:
     int   m_currentFps    = 0;
     int   m_fpsFrameCount = 0;
     float m_fpsTimer      = 0.0f;
-};
+
+    // 랭킹 및 메뉴
+    std::vector<int> m_rankings;
+    int m_menuIndex = 0;
+};

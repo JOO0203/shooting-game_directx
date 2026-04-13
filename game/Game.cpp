@@ -5,6 +5,7 @@
 #include <cmath>
 #include <map>
 #include <string>
+#include <fstream>
 
 Game::Game()
     : m_hWnd(NULL), m_width(1024), m_height(1024), m_state(GameState::START),
@@ -53,6 +54,7 @@ bool Game::Initialize(HWND hWnd) {
     m_inactiveBullets.push_back(&m_bulletPool[i]);
 
   m_grid = std::make_unique<SpatialGrid>(m_width, m_height, 128);
+  LoadRankings();
 
   return true;
 }
@@ -117,14 +119,37 @@ void Game::Update(float deltaTime) {
   }
 
   if (m_state == GameState::START) {
-    if ((GetAsyncKeyState(VK_RETURN) & 0x8000) ||
-        (GetAsyncKeyState(VK_SPACE) & 0x8000)) {
-      m_state = GameState::PLAYING;
+    static bool upDown = false, downDown = false;
+    if (GetAsyncKeyState(VK_UP) & 0x8000) {
+      if (!upDown) { m_menuIndex = (m_menuIndex - 1 + 3) % 3; upDown = true; }
+    } else { upDown = false; }
+    if (GetAsyncKeyState(VK_DOWN) & 0x8000) {
+      if (!downDown) { m_menuIndex = (m_menuIndex + 1) % 3; downDown = true; }
+    } else { downDown = false; }
+
+    if ((GetAsyncKeyState(VK_RETURN) & 0x8000) || (GetAsyncKeyState(VK_SPACE) & 0x8000)) {
+      if (m_menuIndex == 0) { // GAME START
+        m_state = GameState::PLAYING;
+      } else if (m_menuIndex == 1) { // RANKING
+        m_state = GameState::RANKING;
+      } else if (m_menuIndex == 2) { // EXIT
+        PostQuitMessage(0);
+      }
+    }
+    return;
+  }
+
+  if (m_state == GameState::RANKING) {
+    if ((GetAsyncKeyState(VK_RETURN) & 0x8000) || (GetAsyncKeyState(VK_SPACE) & 0x8000) || (GetAsyncKeyState(VK_ESCAPE) & 0x8000)) {
+      m_state = GameState::START;
     }
     return;
   }
 
   if (m_playerLife <= 0 && !m_player.IsRespawning()) {
+    if (m_state == GameState::PLAYING) {
+      UpdateRankings(m_score);
+    }
     m_state = GameState::GAMEOVER;
   }
 
@@ -150,6 +175,9 @@ void Game::Update(float deltaTime) {
           std::make_unique<Explosion>(rx, ry, (float)(rand() % 150 + 100)));
     }
     if (m_endingTimer <= 0) {
+      if (m_state == GameState::ENDING) {
+        UpdateRankings(m_score);
+      }
       m_state = GameState::GAMECLEAR;
       m_msgTimer = 5.0f; // Start 5s countdown
     }
@@ -2869,9 +2897,28 @@ void Game::Render() {
                               (float)m_height / 2.0f, (float)m_width,
                               (float)m_height);
     }
-    m_renderer->DrawTextW(L"PRESS ENTER TO START", (float)m_width / 2.0f,
-                          (float)m_height / 2.0f + 100, 30,
-                          DirectX::XMFLOAT4(1, 1, 1, 1), true);
+    
+    std::wstring menus[] = { L"GAME START", L"RANKING", L"EXIT" };
+    for (int i = 0; i < 3; ++i) {
+      DirectX::XMFLOAT4 color = (m_menuIndex == i) ? DirectX::XMFLOAT4(1, 1, 0, 1) : DirectX::XMFLOAT4(1, 1, 1, 1);
+      float yPos = (float)m_height / 2.0f + 10 + (i * 50);
+      m_renderer->DrawTextW(menus[i], (float)m_width / 2.0f, yPos, 35, color, true);
+      if (m_menuIndex == i) {
+          m_renderer->DrawTextW(L">", (float)m_width / 2.0f - 140, yPos, 35, color, true);
+          m_renderer->DrawTextW(L"<", (float)m_width / 2.0f + 140, yPos, 35, color, true);
+      }
+    }
+  } else if (m_state == GameState::RANKING) {
+    m_renderer->DrawRect(0, 0, (float)m_width, (float)m_height, DirectX::XMFLOAT4(0.05f, 0.05f, 0.1f, 1.0f));
+    m_renderer->DrawTextW(L"-- LOCAL RANKINGS --", (float)m_width / 2.0f, 100, 50, DirectX::XMFLOAT4(1, 1, 0, 1), true);
+
+    for (int i = 0; i < 10; ++i) {
+      std::wstring rankStr = std::to_wstring(i + 1) + L". " + std::to_wstring(m_rankings[i]);
+      float yPos = 200.0f + (i * 60);
+      m_renderer->DrawTextW(rankStr, (float)m_width / 2.0f, yPos, 35, DirectX::XMFLOAT4(1, 1, 1, 1), true);
+    }
+
+    m_renderer->DrawTextW(L"PRESS ENTER TO RETURN", (float)m_width / 2.0f, (float)m_height - 100, 25, DirectX::XMFLOAT4(0.8f, 0.8f, 0.8f, 1), true);
   } else {
     // --- Always Draw Background and Entities ---
     auto drawBG = [&](int stage, float alpha) {
@@ -3075,9 +3122,42 @@ void Game::Reset() {
 
   m_player.SetPosition((float)m_width / 2.0f, (float)m_height * 0.85f);
   
-  // ?�테?��? ?�작 ?�림 추�?
+  // ?테?? ?작 ?림 추?
   m_statusMsg = L"STAGE " + std::to_wstring(m_stage) + L" START";
   m_msgTimer = 3.5f;
-  // Note: If m_player doesn't have a Reset(), we don't call it to avoid compile
-  // errors. Assuming m_player's state is mostly managed by Game.
+  m_menuIndex = 0;
+}
+
+void Game::LoadRankings() {
+  m_rankings.clear();
+  std::ifstream file("rankings.dat", std::ios::binary);
+  if (file.is_open()) {
+    int score;
+    while (file.read(reinterpret_cast<char*>(&score), sizeof(int))) {
+      m_rankings.push_back(score);
+    }
+    file.close();
+  }
+  // 10개가 안 채워져 있으면 0으로 채움
+  while (m_rankings.size() < 10) m_rankings.push_back(0);
+  std::sort(m_rankings.begin(), m_rankings.end(), std::greater<int>());
+}
+
+void Game::SaveRankings() {
+  std::ofstream file("rankings.dat", std::ios::binary | std::ios::trunc);
+  if (file.is_open()) {
+    for (int score : m_rankings) {
+      file.write(reinterpret_cast<const char*>(&score), sizeof(int));
+    }
+    file.close();
+  }
+}
+
+void Game::UpdateRankings(int score) {
+  m_rankings.push_back(score);
+  std::sort(m_rankings.begin(), m_rankings.end(), std::greater<int>());
+  if (m_rankings.size() > 10) {
+    m_rankings.resize(10);
+  }
+  SaveRankings();
 }
