@@ -12,7 +12,7 @@
 #include "Boss.h"
 #include "SpatialGrid.h"
 
-enum class GameState { START, PLAYING, GAMEOVER, GAMECLEAR, ENDING };
+enum class GameState { START, PLAYING, PAUSED, GAMEOVER, GAMECLEAR, ENDING };
 
 class Game {
 public:
@@ -29,6 +29,8 @@ private:
     int m_width = 1024, m_height = 1024;
 
     GameState m_state;
+    GameState m_prevState; // State before pausing
+
     void Update(float deltaTime);
     void Render();
     float m_waveTimer = 0.0f;

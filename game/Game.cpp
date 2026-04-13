@@ -8,6 +8,7 @@
 
 Game::Game()
     : m_hWnd(NULL), m_width(1024), m_height(1024), m_state(GameState::START),
+      m_prevState(GameState::START),
       m_fireTimer(0.0f), m_spawnTimer(0.0f), m_score(0), m_playerLife(5),
       m_bgY(0.0f), m_killCount(0), m_isBossStage(false), m_isGameOver(false),
       m_stage(1), m_bgScrollSpeed(150.0f), m_gameTimer(0.0f),
@@ -91,6 +92,30 @@ void Game::Run() {
 }
 
 void Game::Update(float deltaTime) {
+  // --- Pause Toggle Logic ---
+  static bool pDown = false;
+  bool pPressed = (GetAsyncKeyState('P') & 0x8000) || (GetAsyncKeyState(VK_ESCAPE) & 0x8000);
+  if (pPressed) {
+    if (!pDown) {
+      if (m_state == GameState::PLAYING) {
+        m_prevState = m_state;
+        m_state = GameState::PAUSED;
+      } else if (m_state == GameState::PAUSED) {
+        m_state = m_prevState;
+      }
+      pDown = true;
+    }
+  } else {
+    pDown = false;
+  }
+
+  if (m_state == GameState::PAUSED) {
+    if (GetAsyncKeyState('R') & 0x8000) {
+      Reset();
+    }
+    return; // Skip all updates if paused
+  }
+
   if (m_state == GameState::START) {
     if ((GetAsyncKeyState(VK_RETURN) & 0x8000) ||
         (GetAsyncKeyState(VK_SPACE) & 0x8000)) {
@@ -2935,6 +2960,18 @@ void Game::Render() {
                                 std::to_wstring((int)ceil(m_msgTimer)) + L"...",
                             (float)m_width / 2.0f, (float)m_height / 2.0f + 150,
                             30, DirectX::XMFLOAT4(1, 1, 1, 1), true);
+    } else if (m_state == GameState::PAUSED) {
+      m_renderer->DrawRect(0, 0, (float)m_width, (float)m_height,
+                           DirectX::XMFLOAT4(0, 0, 0, 0.6f)); // Dark Overlay
+      m_renderer->DrawTextW(L"PAUSED", (float)m_width / 2.0f,
+                            (float)m_height / 2.0f - 40, 70,
+                            DirectX::XMFLOAT4(1, 1, 1, 1), true);
+      m_renderer->DrawTextW(L"Press [P] or [ESC] to Resume", (float)m_width / 2.0f,
+                            (float)m_height / 2.0f + 60, 30,
+                            DirectX::XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f), true);
+      m_renderer->DrawTextW(L"Press [R] to Return to Menu", (float)m_width / 2.0f,
+                            (float)m_height / 2.0f + 110, 30,
+                            DirectX::XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f), true);
     }
 
     // --- Status Message Overlay (Center Screen) ---
@@ -3015,6 +3052,8 @@ void Game::Reset() {
   m_supernovaScale = 1.0f;
   m_totalRespawns = 0;
   m_state = GameState::START;
+  m_prevState = GameState::START;
+  m_player.Reset();
 
   m_enemies.clear();
   m_explosions.clear();
